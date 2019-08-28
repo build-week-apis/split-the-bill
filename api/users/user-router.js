@@ -1,41 +1,40 @@
-const express = require('express');
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const secrets = require('../../data/secrets/secret.js');
+const express = require("express");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const secrets = require("../../data/secrets/secret.js");
 
-const Users = require('./user-model.js');
+const Users = require("./user-model.js");
 
 const router = express.Router();
 
-const AuthMiddleware = require('../middleware/auth-middleware.js');
-const ValidateMiddleware = require('../middleware/validate-middleware.js');
+const AuthMiddleware = require("../middleware/auth-middleware.js");
+const ValidateMiddleware = require("../middleware/validate-middleware.js");
 
 // GET ALL USERS
-router.get('/', AuthMiddleware.restricted, async (req, res) => {
+router.get("/", AuthMiddleware.restricted, async (req, res) => {
   Users.find()
     .then(users => {
       res.status(200).json({
-        users: usersWithoutPassword(users),
+        users: usersWithoutPassword(users)
         /* decodedToken: req.decodedToken, */
       });
     })
     .catch(error =>
       res.status(500).json({
-        error:
-          'An error occurred during fetching all users. That one is on us!',
-      }),
+        error: "An error occurred during fetching all users. That one is on us!"
+      })
     );
 });
 
 // GET A USER BY ID
 router.get(
-  '/:id',
+  "/:id",
   AuthMiddleware.restricted,
   ValidateMiddleware.validateUserId,
   async (req, res) => {
     try {
       const {
-        user: { id },
+        user: { id }
       } = req;
 
       const user = await Users.findById(id);
@@ -44,25 +43,26 @@ router.get(
         id: user.id,
         email: user.email,
         firstname: user.firstname,
-        lastname: user.lastname,
+        lastname: user.lastname
       });
     } catch (error) {
       const {
-        user: { id },
+        user: { id }
       } = req;
 
       res.status(500).json({
-        error: `An error occurred during fetching an user with the id ${id}.`,
+        error: `An error occurred during fetching an user with the id ${id}.`
       });
     }
-  },
+  }
 );
 
 // ADD A NEW USER
-router.post('/register', (req, res) => {
+router.post("/register", (req, res) => {
   let { email, password, firstname, lastname } = req.body;
 
   if (email && password && firstname && lastname) {
+    console.log("fired");
     const hash = bcrypt.hashSync(password, 12);
     password = hash;
 
@@ -72,23 +72,24 @@ router.post('/register', (req, res) => {
           id: newUser.id,
           email: newUser.email,
           firstname: newUser.firstname,
-          lastname: newUser.lastname,
+          lastname: newUser.lastname
         });
       })
       .catch(error => {
-        res.status(500).json({
-          error: 'An error occurred during the creation of a new user.',
+        console.log(error);
+        res.status(500).send({
+          error: error
         });
       });
   } else {
     res.status(400).json({
-      warning: 'Not all information were provided to create a new user.',
+      warning: "Not all information were provided to create a new user."
     });
   }
 });
 
 // LOGIN A USER
-router.post('/login', (req, res) => {
+router.post("/login", (req, res) => {
   let { email, password } = req.body;
 
   Users.findByUserEmail(email)
@@ -101,20 +102,18 @@ router.post('/login', (req, res) => {
             id: user.id,
             email: user.email,
             firstname: user.firstname,
-            lastname: user.lastname,
+            lastname: user.lastname
           },
-          token: token,
+          token: token
         });
       } else {
         res.status(401).json({
-          warning: 'Invalid credentials submitted for the login of an user.',
+          warning: "Invalid credentials submitted for the login of an user."
         });
       }
     })
     .catch(error => {
-      res
-        .status(500)
-        .json({ error: 'An error occurred during logging in an user.' });
+      res.status(500).json({ error: "An error occurred during logging in an user." });
     });
 });
 
@@ -148,52 +147,50 @@ router.delete(
 
 // UPDATE A USER
 router.put(
-  '/:id',
+  "/:id",
   AuthMiddleware.restricted,
   ValidateMiddleware.validateUser,
   ValidateMiddleware.validateUserId,
   async (req, res) => {
-    console.log('middleware: ', req.user);
+    console.log("middleware: ", req.user);
     try {
       const {
         body: { email, password, firstname, lastname },
-        user: { id },
+        user: { id }
       } = req;
 
       const successFlag = await Users.update(id, {
         email,
         firstname,
-        lastname,
+        lastname
       });
       return successFlag > 0
         ? res.status(200).json({
-            message: `The user with the id ${id} has been successfully updated!`,
+            message: `The user with the id ${id} has been successfully updated!`
           })
         : res.status(500).json({
-            error: `An error occurred within the database thus the user with the id ${id} could not be updated.`,
+            error: `An error occurred within the database thus the user with the id ${id} could not be updated.`
           });
     } catch (error) {
       const {
-        user: { id },
+        user: { id }
       } = req;
 
       res.status(500).json({
-        error:
-          `An error occurred during updating the user with the id ${id}.` +
-          error,
+        error: `An error occurred during updating the user with the id ${id}.` + error
       });
     }
-  },
+  }
 );
 
 // GET ALL BILLS BY A USER ID
 router.get(
-  '/:id/bills',
+  "/:id/bills",
   AuthMiddleware.restricted,
   ValidateMiddleware.validateUserId,
   async (req, res) => {
     const {
-      user: { id },
+      user: { id }
     } = req;
 
     try {
@@ -202,19 +199,19 @@ router.get(
         res.status(200).json(userBills);
       } else {
         res.status(404).json({
-          info: `No bills are available for the user with the id ${id}.`,
+          info: `No bills are available for the user with the id ${id}.`
         });
       }
     } catch (error) {
       const {
-        user: { id },
+        user: { id }
       } = req;
 
       res.status(500).json({
-        error: `An error occurred retrieving the bills for the user with the id ${id}.`,
+        error: `An error occurred retrieving the bills for the user with the id ${id}.`
       });
     }
-  },
+  }
 );
 
 // UTILITY FUNCTIONS
@@ -223,18 +220,18 @@ function usersWithoutPassword(users) {
     id: user.id,
     email: user.email,
     firstname: user.firstname,
-    lastname: user.lastname,
+    lastname: user.lastname
   }));
 }
 
 function generateJWT(user) {
   const payload = {
     subject: user.id,
-    email: user.email,
+    email: user.email
   };
 
   const options = {
-    expiresIn: '1h',
+    expiresIn: "1h"
   };
 
   return jwt.sign(payload, secrets.jwtSecret, options);
