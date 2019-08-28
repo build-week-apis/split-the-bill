@@ -1,8 +1,6 @@
 # Split The Bill Backend
 
-[Visit Frontend](https://serene-booth-8b0ed1.netlify.com/login)
-
-[Visit Backend](https://split-the-bill-postgres.herokuapp.com) (see endpoints below)
+[Visit Backend](https://build-split-the-bill.herokuapp.com) (see endpoints below)
 
 Split the bill is a fullstack web application that has been built during the WEB20 buildweek_3 (29.07.2019-02.08.2019) by [LambdaSchool](https://lambdaschool.com/) students. Each student fulfills a role in the project to collectively build the app. (Roles listed below)
 
@@ -46,7 +44,7 @@ Welcome to the production environment API of Split The Bill!
 ##### <span style="color:blue">GET [ALL USERS]</span>
 
 ```
-https://split-the-bill-postgres.herokuapp.com/api/users
+https://build-split-the-bill.herokuapp.com/api/users
 ```
 
 - JWT protected (header) :heavy_check_mark:
@@ -86,7 +84,7 @@ https://split-the-bill-postgres.herokuapp.com/api/users
 ##### <span style="color:blue">GET [AN USER BY ID]</span>
 
 ```
-https://split-the-bill-postgres.herokuapp.com/api/users/1
+https://build-split-the-bill.herokuapp.com/api/users/1
 ```
 
 - JWT protected (header) :heavy_check_mark:
@@ -118,7 +116,7 @@ https://split-the-bill-postgres.herokuapp.com/api/users/1
 ##### <span style="color:blue">POST [REGISTER AN USER]</span>
 
 ```
-https://split-the-bill-postgres.herokuapp.com/api/users/register
+https://build-split-the-bill.herokuapp.com/api/users/register
 ```
 
 - JWT protected (header) :x:
@@ -166,7 +164,7 @@ https://split-the-bill-postgres.herokuapp.com/api/users/register
 
 ```
 
-https://split-the-bill-postgres.herokuapp.com/api/users/login
+https://build-split-the-bill.herokuapp.com/api/users/login
 
 ```
 
@@ -219,7 +217,7 @@ https://split-the-bill-postgres.herokuapp.com/api/users/login
 
 ```
 
-https://split-the-bill-postgres.herokuapp.com/api/users/4
+https://build-split-the-bill.herokuapp.com/api/users/4
 
 ```
 
@@ -266,7 +264,7 @@ https://split-the-bill-postgres.herokuapp.com/api/users/4
 ##### <span style="color:blue">GET [BILLS OF AN USER BY ID]</span>
 
 ```
-https://split-the-bill-postgres.herokuapp.com/api/users/3/bills
+https://build-split-the-bill.herokuapp.com/api/users/3/bills
 ```
 
 - JWT protected (header) :heavy_check_mark:
@@ -321,7 +319,7 @@ https://split-the-bill-postgres.herokuapp.com/api/users/3/bills
 ##### <span style="color:blue">GET [ALL BILLS]</span>
 
 ```
-https://split-the-bill-postgres.herokuapp.com/api/bills
+https://build-split-the-bill.herokuapp.com/api/bills
 ```
 
 - JWT protected (header) :heavy_check_mark:
@@ -362,7 +360,7 @@ https://split-the-bill-postgres.herokuapp.com/api/bills
 ##### <span style="color:blue">GET [A BILL BY ID]</span>
 
 ```
-https://split-the-bill-postgres.herokuapp.com/api/bills/2
+https://build-split-the-bill.herokuapp.com/api/bills/2
 ```
 
 - JWT protected (header) :heavy_check_mark:
@@ -394,7 +392,7 @@ https://split-the-bill-postgres.herokuapp.com/api/bills/2
 ##### <span style="color:blue">POST [A NEW BILL]</span>
 
 ```
-https://split-the-bill-postgres.herokuapp.com/api/bills/
+https://build-split-the-bill.herokuapp.com/api/bills/
 ```
 
 - JWT protected (header) :heavy_check_mark:
@@ -443,7 +441,7 @@ https://split-the-bill-postgres.herokuapp.com/api/bills/
 ##### <span style="color:blue">DELETE [A BILL]</span>
 
 ```
-https://split-the-bill-postgres.herokuapp.com/api/bills/15
+https://build-split-the-bill.herokuapp.com/api/bills/15
 
 ```
 
@@ -471,7 +469,7 @@ https://split-the-bill-postgres.herokuapp.com/api/bills/15
 ##### <span style="color:blue">PUT [UPDATE A BILL]</span>
 
 ```
-https://split-the-bill-postgres.herokuapp.com/api/bills/4
+https://build-split-the-bill.herokuapp.com/api/bills/4
 
 ```
 
@@ -518,7 +516,7 @@ https://split-the-bill-postgres.herokuapp.com/api/bills/4
 ##### <span style="color:blue">GET [NOTIFICATIONS OF A BILL BY ID]</span>
 
 ```
-https://split-the-bill-postgres.herokuapp.com/api/bills/2/notifications
+https://build-split-the-bill.herokuapp.com/api/bills/2/notifications
 ```
 
 - JWT protected (header) :heavy_check_mark:
@@ -563,7 +561,7 @@ https://split-the-bill-postgres.herokuapp.com/api/bills/2/notifications
 ##### <span style="color:blue">DELETE [ALL NOTIFICATIONS OF A BILL]</span>
 
 ```
-https://split-the-bill-postgres.herokuapp.com/api/bills/31/notifications
+https://build-split-the-bill.herokuapp.com/api/bills/31/notifications
 
 ```
 
@@ -609,7 +607,7 @@ https://split-the-bill-postgres.herokuapp.com/api/bills/31/notifications
 ##### <span style="color:blue">GET [ALL NOTIFICATIONS]</span>
 
 ```
-https://split-the-bill-postgres.herokuapp.com/api/notifications
+https://build-split-the-bill.herokuapp.com/api/notifications
 ```
 
 - JWT protected (header) :heavy_check_mark:
@@ -646,7 +644,7 @@ https://split-the-bill-postgres.herokuapp.com/api/notifications
 ##### <span style="color:blue">POST [AN ARRAY OF NOTIFICATIONS]</span>
 
 ```
-https://split-the-bill-postgres.herokuapp.com/api/notifications
+https://build-split-the-bill.herokuapp.com/api/notifications
 ```
 
 - JWT protected (header) :heavy_check_mark:
