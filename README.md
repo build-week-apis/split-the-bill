@@ -22,9 +22,9 @@ Split The Bill provides a web application where people can easily calculate how 
 
 # Endpoints
 
-### General
+## **General**
 
-##### <span style="color:blue">GET [API RUNNING]</span>
+### **GET [API RUNNING]**
 
 ```
 https://split-the-bill-postgres.herokuapp.com/
@@ -33,15 +33,115 @@ https://split-the-bill-postgres.herokuapp.com/
 - JWT protected (header) :x:
 - payload (body) :x:
 
-<span style="color:red">API Running Response (200 OK)</span>:
+API Running Response (200 OK):
 
 ```
 Welcome to the production environment API of Split The Bill!
 ```
 
-### USERS
+## USERS
 
-##### <span style="color:blue">GET [ALL USERS]</span>
+### **POST [REGISTER AN USER]**
+
+```
+https://build-split-the-bill.herokuapp.com/api/users/register
+```
+
+- JWT protected (header) :x:
+- payload (body) :heavy_check_mark:
+
+Example Request:
+
+```
+{
+	"email": "kevin@test.com",
+	"password": "correcthorsebatterystaple",
+	"firstname": "kevin",
+	"lastname": "tou"
+}
+```
+
+Created user Response (201 CREATED):
+
+```
+{
+    "id": 15,
+    "email": "kevin@test.com",
+    "firstname": "kevin",
+    "lastname": "tou"
+}
+```
+
+User data not complete Response (400 BAD REQUEST):
+
+```
+{
+ "warning": "Not all information were provided to create a new user."
+}
+```
+
+Server Error Response (500 SERVER ERROR):
+
+```
+{
+"error": "An error occurred during the creation of a new user."
+}
+```
+
+### **POST [LOGIN AN USER]**
+
+```
+
+https://build-split-the-bill.herokuapp.com/api/users/login
+
+```
+
+- JWT protected (header) :x:
+- payload (body) :heavy_check_mark:
+
+Example Request:
+
+```
+
+{
+    "email": "kevin@test.com",
+	"password": "correcthorsebatterystaple"
+}
+
+```
+
+Logged In Response (200 OK):
+
+```
+{
+    "message": "The user kevin@test.com successfully logged in!",
+    "user": {
+        "id": 11,
+        "email": "kevin@test.com",
+        "firstname": "kevin",
+        "lastname": "tou"
+    },
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWJqZWN0IjoxMSwiZW1haWwiOiJrZXZpbkB0ZXN0LmNvbTY2NiIsImlhdCI6MTU2NDY4MTc1MCwiZXhwIjoxNTY0Njg1MzUwfQ.-DGabIPf9dXG38gx3t5Jq3xXwHzWLUwv1Zum0G_nkeE"
+}
+```
+
+Invalid credentials Response (401 UNAUTHORIZED):
+
+```
+{
+    "warning": "Invalid credentials submitted for the login of an user."
+}
+```
+
+Server Error Response (500 SERVER ERROR):
+
+```
+{
+    "error": "An error occurred during logging in an user."
+}
+```
+
+### **GET [ALL USERS]**
 
 ```
 https://build-split-the-bill.herokuapp.com/api/users
@@ -52,7 +152,7 @@ https://build-split-the-bill.herokuapp.com/api/users
 - Authorization gets validated over restricted middleware - extra responses below
 - No passwords are returned they are not even stored in the database directly
 
-<span style="color:red">Found users Response (200 OK)</span>:
+Found users Response (200 OK):
 
 ```
 {
@@ -73,7 +173,7 @@ https://build-split-the-bill.herokuapp.com/api/users
 }
 ```
 
-<span style="color:red">Server error Response (500 SERVER ERROR)</span>:
+Server error Response (500 SERVER ERROR):
 
 ```
 {
@@ -81,10 +181,10 @@ https://build-split-the-bill.herokuapp.com/api/users
 }
 ```
 
-##### <span style="color:blue">GET [AN USER BY ID]</span>
+### **GET [AN USER BY ID]**
 
 ```
-https://build-split-the-bill.herokuapp.com/api/users/1
+https://build-split-the-bill.herokuapp.com/api/users/{ID}
 ```
 
 - JWT protected (header) :heavy_check_mark:
@@ -94,7 +194,7 @@ https://build-split-the-bill.herokuapp.com/api/users/1
 - USER ID gets validated over validateUserId middleware - extra responses below
 - No passwords are returned they are not even stored in the database directly
 
-<span style="color:red">Found user Response (200 OK)</span>:
+Found user Response (200 OK):
 
 ```
 {
@@ -105,7 +205,7 @@ https://build-split-the-bill.herokuapp.com/api/users/1
 }
 ```
 
-<span style="color:red">Server error Response (500 SERVER ERROR)</span>:
+Server error Response (500 SERVER ERROR):
 
 ```
 {
@@ -113,111 +213,11 @@ https://build-split-the-bill.herokuapp.com/api/users/1
 }
 ```
 
-##### <span style="color:blue">POST [REGISTER AN USER]</span>
-
-```
-https://build-split-the-bill.herokuapp.com/api/users/register
-```
-
-- JWT protected (header) :x:
-- payload (body) :heavy_check_mark:
-
-<span style="color:green">Example Request</span>:
-
-```
-{
-	"email": "kevin@test.com",
-	"password": "correcthorsebatterystaple",
-	"firstname": "kevin",
-	"lastname": "tou"
-}
-```
-
-<span style="color:red">Created user Response (201 CREATED)</span>:
-
-```
-{
-    "id": 15,
-    "email": "kevin@test.com",
-    "firstname": "kevin",
-    "lastname": "tou"
-}
-```
-
-<span style="color:red">User data not complete Response (400 BAD REQUEST)</span>:
-
-```
-{
- "warning": "Not all information were provided to create a new user."
-}
-```
-
-<span style="color:red">Server Error Response (500 SERVER ERROR)</span>:
-
-```
-{
-"error": "An error occurred during the creation of a new user."
-}
-```
-
-##### <span style="color:blue">POST [LOGIN AN USER]</span>
+### **PUT [UPDATE AN USER]**
 
 ```
 
-https://build-split-the-bill.herokuapp.com/api/users/login
-
-```
-
-- JWT protected (header) :x:
-- payload (body) :heavy_check_mark:
-
-<span style="color:green">Example Request</span>:
-
-```
-
-{
-    "email": "kevin@test.com",
-	"password": "correcthorsebatterystaple"
-}
-
-```
-
-<span style="color:red">Logged In Response (200 OK)</span>:
-
-```
-{
-    "message": "The user kevin@test.com successfully logged in!",
-    "user": {
-        "id": 11,
-        "email": "kevin@test.com",
-        "firstname": "kevin",
-        "lastname": "tou"
-    },
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWJqZWN0IjoxMSwiZW1haWwiOiJrZXZpbkB0ZXN0LmNvbTY2NiIsImlhdCI6MTU2NDY4MTc1MCwiZXhwIjoxNTY0Njg1MzUwfQ.-DGabIPf9dXG38gx3t5Jq3xXwHzWLUwv1Zum0G_nkeE"
-}
-```
-
-<span style="color:red">Invalid credentials Response (401 UNAUTHORIZED)</span>:
-
-```
-{
-    "warning": "Invalid credentials submitted for the login of an user."
-}
-```
-
-<span style="color:red">Server Error Response (500 SERVER ERROR)</span>:
-
-```
-{
-    "error": "An error occurred during logging in an user."
-}
-```
-
-##### <span style="color:blue">PUT [UPDATE AN USER]</span>
-
-```
-
-https://build-split-the-bill.herokuapp.com/api/users/4
+https://build-split-the-bill.herokuapp.com/api/users/{ID}
 
 ```
 
@@ -227,7 +227,7 @@ https://build-split-the-bill.herokuapp.com/api/users/4
 - USER ID gets validated over validateUserId middleware - extra responses below
 - USER gets validated over validateUser middleware - extra responses below
 
-<span style="color:green">Example Request</span>:
+Example Request:
 
 ```
 {
@@ -237,7 +237,7 @@ https://build-split-the-bill.herokuapp.com/api/users/4
 }
 ```
 
-<span style="color:red">Updated user Response (200 OK)</span>:
+Updated user Response (200 OK):
 
 ```
 {
@@ -245,7 +245,7 @@ https://build-split-the-bill.herokuapp.com/api/users/4
 }
 ```
 
-<span style="color:red">Database error Response (500 SERVER ERROR)</span>:
+Database error Response (500 SERVER ERROR):
 
 ```
 {
@@ -253,7 +253,7 @@ https://build-split-the-bill.herokuapp.com/api/users/4
 }
 ```
 
-<span style="color:red">Server error Response (500 SERVER ERROR)</span>:
+Server error Response (500 SERVER ERROR):
 
 ```
 {
@@ -261,10 +261,10 @@ https://build-split-the-bill.herokuapp.com/api/users/4
 }
 ```
 
-##### <span style="color:blue">GET [BILLS OF AN USER BY ID]</span>
+### **GET [BILLS OF AN USER BY ID]**
 
 ```
-https://build-split-the-bill.herokuapp.com/api/users/3/bills
+https://build-split-the-bill.herokuapp.com/api/users/{ID}/bills
 ```
 
 - JWT protected (header) :heavy_check_mark:
@@ -273,7 +273,7 @@ https://build-split-the-bill.herokuapp.com/api/users/3/bills
 - USER ID gets validated over validateUserId middleware - extra responses below
 - ID is defined over the used route at the end
 
-<span style="color:red">Found bills Response (200 OK)</span>:
+Found bills Response (200 OK):
 
 ```
 {
@@ -298,7 +298,7 @@ https://build-split-the-bill.herokuapp.com/api/users/3/bills
 }
 ```
 
-<span style="color:red">No bills found for the user Response (404 NOT FOUND)</span>:
+No bills found for the user Response (404 NOT FOUND):
 
 ```
 {
@@ -306,7 +306,7 @@ https://build-split-the-bill.herokuapp.com/api/users/3/bills
 }
 ```
 
-<span style="color:red">Server error Response (500 SERVER ERROR)</span>:
+Server error Response (500 SERVER ERROR):
 
 ```
 {
@@ -314,9 +314,9 @@ https://build-split-the-bill.herokuapp.com/api/users/3/bills
 }
 ```
 
-### BILLS
+## **BILLS**
 
-##### <span style="color:blue">GET [ALL BILLS]</span>
+### **GET [ALL BILLS]**
 
 ```
 https://build-split-the-bill.herokuapp.com/api/bills
@@ -326,7 +326,7 @@ https://build-split-the-bill.herokuapp.com/api/bills
 - payload (body) :x:
 - Authorization gets validated over restricted middleware - extra responses below
 
-<span style="color:red">Found bills Response (200 OK)</span>:
+Found bills Response (200 OK):
 
 ```
 {
@@ -349,7 +349,7 @@ https://build-split-the-bill.herokuapp.com/api/bills
 }
 ```
 
-<span style="color:red">Server error Response (500 SERVER ERROR)</span>:
+Server error Response (500 SERVER ERROR):
 
 ```
 {
@@ -357,10 +357,10 @@ https://build-split-the-bill.herokuapp.com/api/bills
 }
 ```
 
-##### <span style="color:blue">GET [A BILL BY ID]</span>
+### **GET [A BILL BY ID]**
 
 ```
-https://build-split-the-bill.herokuapp.com/api/bills/2
+https://build-split-the-bill.herokuapp.com/api/bills/{ID}
 ```
 
 - JWT protected (header) :heavy_check_mark:
@@ -369,7 +369,7 @@ https://build-split-the-bill.herokuapp.com/api/bills/2
 - Authorization gets validated over restricted middleware - extra responses below
 - BILL ID gets validated over validateBillId middleware - extra responses below
 
-<span style="color:red">Found bill Response (200 OK)</span>:
+Found bill Response (200 OK):
 
 ```
 {
@@ -381,7 +381,7 @@ https://build-split-the-bill.herokuapp.com/api/bills/2
 }
 ```
 
-<span style="color:red">Server error Response (500 SERVER ERROR)</span>:
+Server error Response (500 SERVER ERROR):
 
 ```
 {
@@ -389,7 +389,7 @@ https://build-split-the-bill.herokuapp.com/api/bills/2
 }
 ```
 
-##### <span style="color:blue">POST [A NEW BILL]</span>
+### **POST [A NEW BILL]**
 
 ```
 https://build-split-the-bill.herokuapp.com/api/bills/
@@ -400,7 +400,7 @@ https://build-split-the-bill.herokuapp.com/api/bills/
 - Authorization gets validated over restricted middleware - extra responses below
 - BILL gets validated over validateBill middleware - extra responses below
 
-<span style="color:green">Example Request</span>:
+Example Request:
 
 ```
 {
@@ -410,7 +410,7 @@ https://build-split-the-bill.herokuapp.com/api/bills/
 }
 ```
 
-<span style="color:red">New bill Response (200 OK)</span>:
+New bill Response (200 OK):
 
 ```
 {
@@ -422,7 +422,7 @@ https://build-split-the-bill.herokuapp.com/api/bills/
 }
 ```
 
-<span style="color:red">Bill info not complete Response (400 BAD REQUEST)</span>:
+Bill info not complete Response (400 BAD REQUEST):
 
 ```
 {
@@ -430,7 +430,7 @@ https://build-split-the-bill.herokuapp.com/api/bills/
 }
 ```
 
-<span style="color:red">Server error Response (500 SERVER ERROR)</span>:
+Server error Response (500 SERVER ERROR):
 
 ```
 {
@@ -438,10 +438,10 @@ https://build-split-the-bill.herokuapp.com/api/bills/
 }
 ```
 
-##### <span style="color:blue">DELETE [A BILL]</span>
+### **DELETE [A BILL]**
 
 ```
-https://build-split-the-bill.herokuapp.com/api/bills/15
+https://build-split-the-bill.herokuapp.com/api/bills/{ID}
 
 ```
 
@@ -450,7 +450,7 @@ https://build-split-the-bill.herokuapp.com/api/bills/15
 - Authorization gets validated over restricted middleware - extra responses below
 - BILL ID gets validated over validateBillId middleware - extra responses below
 
-<span style="color:red">Bill deletion Response (200 OK)</span>:
+Bill deletion Response (200 OK):
 
 ```
 {
@@ -458,7 +458,7 @@ https://build-split-the-bill.herokuapp.com/api/bills/15
 }
 ```
 
-<span style="color:red">Server error Response (500 SERVER ERROR)</span>:
+Server error Response (500 SERVER ERROR):
 
 ```
 {
@@ -466,10 +466,10 @@ https://build-split-the-bill.herokuapp.com/api/bills/15
 }
 ```
 
-##### <span style="color:blue">PUT [UPDATE A BILL]</span>
+### **PUT [UPDATE A BILL]**
 
 ```
-https://build-split-the-bill.herokuapp.com/api/bills/4
+https://build-split-the-bill.herokuapp.com/api/bills/{ID}
 
 ```
 
@@ -479,7 +479,7 @@ https://build-split-the-bill.herokuapp.com/api/bills/4
 - Authorization gets validated over restricted middleware - extra responses below
 - BILL ID gets validated over validateBillId middleware - extra responses below
 
-<span style="color:green">Example Request</span>:
+Example Request:
 
 ```
 {
@@ -489,7 +489,7 @@ https://build-split-the-bill.herokuapp.com/api/bills/4
 }
 ```
 
-<span style="color:red">Updated bill Response (200 OK)</span>:
+Updated bill Response (200 OK):
 
 ```
 {
@@ -497,7 +497,7 @@ https://build-split-the-bill.herokuapp.com/api/bills/4
 }
 ```
 
-<span style="color:red">Database error Response (500 SERVER ERROR)</span>:
+Database error Response (500 SERVER ERROR):
 
 ```
 {
@@ -505,7 +505,7 @@ https://build-split-the-bill.herokuapp.com/api/bills/4
 }
 ```
 
-<span style="color:red">Server error Response (500 SERVER ERROR)</span>:
+Server error Response (500 SERVER ERROR):
 
 ```
 {
@@ -513,10 +513,10 @@ https://build-split-the-bill.herokuapp.com/api/bills/4
 }
 ```
 
-##### <span style="color:blue">GET [NOTIFICATIONS OF A BILL BY ID]</span>
+### **GET [NOTIFICATIONS OF A BILL BY ID]**
 
 ```
-https://build-split-the-bill.herokuapp.com/api/bills/2/notifications
+https://build-split-the-bill.herokuapp.com/api/bills/{ID}/notifications
 ```
 
 - JWT protected (header) :heavy_check_mark:
@@ -525,7 +525,7 @@ https://build-split-the-bill.herokuapp.com/api/bills/2/notifications
 - Authorization gets validated over restricted middleware - extra responses below
 - BILL ID gets validated over validateBillId middleware - extra responses below
 
-<span style="color:red">Found notifications for bill Response (200 OK)</span>:
+Found notifications for bill Response (200 OK):
 
 ```
 [
@@ -542,7 +542,7 @@ https://build-split-the-bill.herokuapp.com/api/bills/2/notifications
 ]
 ```
 
-<span style="color:red">No notifications found Response (404 NOT FOUND)</span>:
+No notifications found Response (404 NOT FOUND):
 
 ```
 {
@@ -550,7 +550,7 @@ https://build-split-the-bill.herokuapp.com/api/bills/2/notifications
 }
 ```
 
-<span style="color:red">Server error Response (500 SERVER ERROR)</span>:
+Server error Response (500 SERVER ERROR):
 
 ```
 {
@@ -558,10 +558,10 @@ https://build-split-the-bill.herokuapp.com/api/bills/2/notifications
 }
 ```
 
-##### <span style="color:blue">DELETE [ALL NOTIFICATIONS OF A BILL]</span>
+### **DELETE [ALL NOTIFICATIONS OF A BILL]**
 
 ```
-https://build-split-the-bill.herokuapp.com/api/bills/31/notifications
+https://build-split-the-bill.herokuapp.com/api/bills/{ID}/notifications
 
 ```
 
@@ -570,7 +570,7 @@ https://build-split-the-bill.herokuapp.com/api/bills/31/notifications
 - Authorization gets validated over restricted middleware - extra responses below
 - BILL ID gets validated over validateBillId middleware - extra responses below
 
-<span style="color:red">Deletion notifications Response (200 OK)</span>:
+Deletion notifications Response (200 OK):
 
 ```
 {
@@ -578,7 +578,7 @@ https://build-split-the-bill.herokuapp.com/api/bills/31/notifications
 }
 ```
 
-<span style="color:red">No notifications to delete found Response (404 NOT FOUND)</span>:
+No notifications to delete found Response (404 NOT FOUND):
 
 ```
 {
@@ -586,7 +586,7 @@ https://build-split-the-bill.herokuapp.com/api/bills/31/notifications
 }
 ```
 
-<span style="color:red">Database error deletion of a notification Response (500 SERVER ERROR)</span>:
+Database error deletion of a notification Response (500 SERVER ERROR):
 
 ```
 {
@@ -594,7 +594,7 @@ https://build-split-the-bill.herokuapp.com/api/bills/31/notifications
 }
 ```
 
-<span style="color:red">Server error Response (500 SERVER ERROR)</span>:
+Server error Response (500 SERVER ERROR):
 
 ```
 {
@@ -602,9 +602,9 @@ https://build-split-the-bill.herokuapp.com/api/bills/31/notifications
 }
 ```
 
-### NOTIFICATIONS
+## **NOTIFICATIONS**
 
-##### <span style="color:blue">GET [ALL NOTIFICATIONS]</span>
+### **GET [ALL NOTIFICATIONS]**
 
 ```
 https://build-split-the-bill.herokuapp.com/api/notifications
@@ -614,7 +614,7 @@ https://build-split-the-bill.herokuapp.com/api/notifications
 - payload (body) :x:
 - Authorization gets validated over restricted middleware - extra responses below
 
-<span style="color:red">Notifications found Response (200 OK)</span>:
+Notifications found Response (200 OK):
 
 ```
 {
@@ -633,7 +633,7 @@ https://build-split-the-bill.herokuapp.com/api/notifications
 }
 ```
 
-<span style="color:red">Server error Response (500 SERVER ERROR)</span>:
+Server error Response (500 SERVER ERROR):
 
 ```
 {
@@ -641,7 +641,7 @@ https://build-split-the-bill.herokuapp.com/api/notifications
 }
 ```
 
-##### <span style="color:blue">POST [AN ARRAY OF NOTIFICATIONS]</span>
+### **POST [AN ARRAY OF NOTIFICATIONS]**
 
 ```
 https://build-split-the-bill.herokuapp.com/api/notifications
@@ -651,7 +651,7 @@ https://build-split-the-bill.herokuapp.com/api/notifications
 - payload (body) :heavy_check_mark:
 - BILL gets validated over validateBill middleware - extra responses below
 
-<span style="color:green">Example Request</span>:
+Example Request:
 
 ```
 {
@@ -660,7 +660,7 @@ https://build-split-the-bill.herokuapp.com/api/notifications
 }
 ```
 
-<span style="color:red">Created notifications Response (200 OK)</span>:
+Created notifications Response (200 OK):
 
 ```
 {
@@ -668,7 +668,7 @@ https://build-split-the-bill.herokuapp.com/api/notifications
 }
 ```
 
-<span style="color:red">Notification info not complete Response (400 BAD REQUEST)</span>:
+Notification info not complete Response (400 BAD REQUEST):
 
 ```
 {
@@ -676,7 +676,7 @@ https://build-split-the-bill.herokuapp.com/api/notifications
 }
 ```
 
-<span style="color:red">Server error Response (500 SERVER ERROR)</span>:
+Server error Response (500 SERVER ERROR):
 
 ```
 {
@@ -699,7 +699,7 @@ To submit a JWT along a HTTP request add the JWT that can be acquired through th
 
 The JWT is randomly generated and only the specific provided one from login will be valid.
 
-<span style="color:red">Bad Authorization Response (401 UNAUTHORIZED)</span>:
+Bad Authorization Response (401 UNAUTHORIZED):
 
 ```
 {
@@ -707,7 +707,7 @@ The JWT is randomly generated and only the specific provided one from login will
 }
 ```
 
-<span style="color:red">User validation no body data (400 BAD REQUEST)</span>:
+User validation no body data (400 BAD REQUEST):
 
 ```
 {
@@ -715,7 +715,7 @@ The JWT is randomly generated and only the specific provided one from login will
 }
 ```
 
-<span style="color:red">User validation user data not complete (400 BAD REQUEST)</span>:
+User validation user data not complete (400 BAD REQUEST):
 
 ```
 {
@@ -723,7 +723,7 @@ The JWT is randomly generated and only the specific provided one from login will
 }
 ```
 
-<span style="color:red">User ID validation user not found (404 NOT FOUND)</span>:
+User ID validation user not found (404 NOT FOUND):
 
 ```
 {
@@ -731,7 +731,7 @@ The JWT is randomly generated and only the specific provided one from login will
 }
 ```
 
-<span style="color:red">User ID validation server error (500 SERVER ERROR)</span>:
+User ID validation server error (500 SERVER ERROR):
 
 ```
 {
@@ -739,7 +739,7 @@ The JWT is randomly generated and only the specific provided one from login will
 }
 ```
 
-<span style="color:red">Bill validation no body data (400 BAD REQUEST)</span>:
+Bill validation no body data (400 BAD REQUEST):
 
 ```
 {
@@ -747,7 +747,7 @@ The JWT is randomly generated and only the specific provided one from login will
 }
 ```
 
-<span style="color:red">Bill validation bill data not complete (400 BAD REQUEST)</span>:
+Bill validation bill data not complete (400 BAD REQUEST):
 
 ```
 {
@@ -755,7 +755,7 @@ The JWT is randomly generated and only the specific provided one from login will
 }
 ```
 
-<span style="color:red">Bill ID validation bill not found (404 NOT FOUND)</span>:
+Bill ID validation bill not found (404 NOT FOUND):
 
 ```
 {
@@ -763,7 +763,7 @@ The JWT is randomly generated and only the specific provided one from login will
 }
 ```
 
-<span style="color:red">Bill ID validation server error (500 SERVER ERROR)</span>:
+Bill ID validation server error (500 SERVER ERROR):
 
 ```
 {
@@ -771,7 +771,7 @@ The JWT is randomly generated and only the specific provided one from login will
 }
 ```
 
-<span style="color:red">Notification validation no body data (400 BAD REQUEST)</span>:
+Notification validation no body data (400 BAD REQUEST):
 
 ```
 {
@@ -779,7 +779,7 @@ The JWT is randomly generated and only the specific provided one from login will
 }
 ```
 
-<span style="color:red">Notification validation notification data not complete (400 BAD REQUEST)</span>:
+Notification validation notification data not complete (400 BAD REQUEST):
 
 ```
 {
@@ -787,7 +787,7 @@ The JWT is randomly generated and only the specific provided one from login will
 }
 ```
 
-<span style="color:red">Notification ID validation notification not found (404 NOT FOUND)</span>:
+Notification ID validation notification not found (404 NOT FOUND):
 
 ```
 {
@@ -795,7 +795,7 @@ The JWT is randomly generated and only the specific provided one from login will
 }
 ```
 
-<span style="color:red">Notification ID validation server error (500 SERVER ERROR)</span>:
+Notification ID validation server error (500 SERVER ERROR):
 
 ```
 {
@@ -842,7 +842,3 @@ For testing of the server and endpoints supertest and JEST was used.
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
-
-```
-
-```

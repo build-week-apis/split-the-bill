@@ -1,5 +1,5 @@
-const dotenv = require('dotenv');
+const dotenv = require("dotenv");
 
 module.exports = {
-  jwtSecret: process.env.JWT_SECRET,
+  jwtSecret: process.env.JWT_SECRET || "token"
 };
