@@ -22,8 +22,8 @@ Split The Bill provides a web application where people can easily calculate how 
 
 # Endpoints
 
-:x: = Not Required
-:heavy_check_mark: = Required
+:x: = `Not Required`  
+:heavy_check_mark: = `Required`
 
 ## **General**
 
